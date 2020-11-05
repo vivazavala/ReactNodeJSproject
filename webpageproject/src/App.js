@@ -1,9 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import 'react-bootstrap';
 import { render } from 'react-dom';
-{////////////////}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -25,10 +22,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-            
-                </header>
+            <h1>Hello World</h1>  
                 <p>{this.state.apiResponse}</p>
             </div>
         );
