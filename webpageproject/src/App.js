@@ -1,5 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
+import Login from "./Components/Login"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from "./Components/Header";
 
 class App extends React.Component {
     constructor(props) {
@@ -22,8 +25,8 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-            <h1>Hello World</h1>  
                 <p>{this.state.apiResponse}</p>
+                <Login />
             </div>
         );
     }

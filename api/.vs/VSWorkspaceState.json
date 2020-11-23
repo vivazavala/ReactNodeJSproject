@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\bin",
-    "\\routes"
+    "\\routes",
+    "\\views"
   ],
-  "SelectedNode": "\\routes\\testAPI.js",
+  "SelectedNode": "\\routes\\index.js",
   "PreviewInSolutionExplorer": false
 }
