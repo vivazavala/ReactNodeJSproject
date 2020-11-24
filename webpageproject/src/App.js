@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Login from "./Components/Login"
-import Register from "./Components/Register"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./Components/Header";
+import Register from './Components/Register';
 
 class App extends React.Component {
     constructor(props) {
