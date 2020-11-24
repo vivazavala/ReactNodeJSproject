@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button} from 'react-bootstrap';
 
     class Login extends Component {
 
@@ -7,37 +7,57 @@ import { Form, Button } from 'react-bootstrap';
         super(props);
         this.state = {};
         }
-       
-    render() {
-        return ( 
-            <div style={{
-                position: 'absolute', left: '50%', top: '40%',
-                transform: 'translate(-50%, -50%)',
-             //   backgroundImage: 'url(' + require('/img/webpageBG.jpg') + ')'
+    
+        render() {
+
+            return ( 
+            
+            <div className="login" style={{
+                   position: 'absolute', left: '50%', top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                   backgroundRepeat: 'no-repeat',
+                   backgroundPosition: 'center',
+                    backgroundImage: `url(${'/img/webpageBG.jpg'})`,
+                    backgroundSize: 'cover',
+                    height: '100%',
+                    width: '100%'
             }}>
-             
                
-                <Form>
-                 
-                    <h1 align="middle">Sign In</h1>
-                    <br />
-                    <br />
-                <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>             
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form style={{
+                        position: 'absolute', left: '50%', top: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        height: '63%',
+                        width: '40%',
+                        borderRadius: '15px',
+                        backgroundColor: '#ffffff',
+               
+                    }}>     
+                        <br/>
+                        <h1 align="middle" style={{
+                            color: 'grey',
+                        }}>Sign In</h1>
+                       <br />
+                  
+                        <Form.Group controlId="formBasicEmail" style={{margin: "10px"}}>
+                            <Form.Label style={{color: 'black'}}>Email address</Form.Label>     
+                           
+                            <Form.Control type="email" placeholder="Enter email" />
+                            <br /><br />
                 </Form.Group>
-                    <br />
-                <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                    
+                        <Form.Group controlId="formBasicPassword" style={{ margin: "10px" }}>
+                            <Form.Label style={{ color: 'black' }}>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" />
                     </Form.Group>
                     <br />
-                    
-                <Button align="middle" variant="primary" type="submit" block>
-                        Login
-  </Button>
-                    <a href='#SignUp'>Forgot Password?</a>
-                       &nbsp;&nbsp;&nbsp;&nbsp; <a href='#Register'>Register</a>
+
+                        <Form.Group controlId="RegisterForgot" style={{ margin: "10px" }}>
+                            <Button align="middle" variant="secondary" type="submit" block>
+                                Login
+                            </Button>
+                            <br/>
+                            <a href='/Register' style={{ color: 'blue' }}>Register</a>
+                            </Form.Group>
             </Form>
             </div>  
         );

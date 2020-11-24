@@ -25,8 +25,9 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
+               <Login />
                 <p>{this.state.apiResponse}</p>
-                <Login />
+                
             </div>
         );
     }
