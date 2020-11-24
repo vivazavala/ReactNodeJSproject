@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Login from "./Components/Login"
+import Register from "./Components/Register"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "./Components/Header";
 
@@ -26,8 +27,9 @@ class App extends React.Component {
         return (
             <div className="App">
                <Login />
-                <p>{this.state.apiResponse}</p>
+                <p>{this.state.apiResponse}</p>              
                 
+
             </div>
         );
     }
