@@ -26,7 +26,7 @@ import { Form, Button} from 'react-bootstrap';
                     <Form style={{
                         position: 'absolute', left: '50%', top: '50%',
                         transform: 'translate(-50%, -50%)',
-                        height: '63%',
+                        height: '40%',
                         width: '40%',
                         borderRadius: '15px',
                         backgroundColor: '#ffffff',
