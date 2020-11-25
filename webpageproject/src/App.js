@@ -1,35 +1,27 @@
 import React from 'react';
-import { render } from 'react-dom';
-import Login from "./Components/Login"
+import {BrowserRouter as Router, Route, render} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from "./Components/Header";
+import Login from "./Components/Login"
 import Register from './Components/Register';
+import Dashboard from "./Components/Dashboard";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { apiResponse: "" };
+        this.state = {};
     }
-
-    callAPI() {
-        fetch("http://localhost:9000/testAPI")
-            .then(res => res.text())
-            .then(res => this.setState({ apiResponse: res }))
-            .catch(err => err);
-    }
-
-    componentWillMount() {
-        this.callAPI();
-    }
-
 
     render() {
         return (
+         <Router>
             <div className="App">
-               <Login/>
-                <p>{this.state.apiResponse}</p>              
-         
-            </div>
+                    <Route path="/" exact component={Login} />
+                    <Route path="/Register" component={Register} />
+                    <Route path="/Dashboard" component={Dashboard}/>      
+                          
+                </div>
+
+                </Router>
         );
     }
 }

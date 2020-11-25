@@ -4,9 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-testAPIRouter = require("./routes/testAPI");
+var mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
+
 var app = express();
 
 // view engine setup
@@ -20,9 +21,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use("/testAPI", testAPIRouter);
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, userCreateIndex: true });
+const connection = mongoose.connection;
+
+connection.once('open', () => {
+    console.log("MongoDB connected");
+})
+/////
+const registerRouter = require('./routes/Register');
+
+app.use('/Register', registerRouter);
+
+
+app.listen(port, () => {
+    console.log('Server is running on port: ${port}');
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
