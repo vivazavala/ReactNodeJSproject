@@ -14,8 +14,8 @@ class Register extends Component {
 
         this.state = {
             email: '',
-            password: '',
-            confirmPass: '',
+            pass: '',
+            passCheck: '',
             adminId: ''
         }
     }
@@ -27,13 +27,13 @@ class Register extends Component {
 
     onConPasswordChange(e) {
         this.setState({
-            confirmPass: e.target.value
+            passCheck: e.target.value
         });
 
     }
     onPasswordChange(e) {
         this.setState({
-            password: e.target.value
+            pass: e.target.value
         });
     }
     onEmailChange(e) {
@@ -51,16 +51,17 @@ class Register extends Component {
         e.preventDefault();
         const user = {
             email: this.state.email,
-            password: this.state.password,
-            confirmPass: this.state.confirmPass,
+            pass: this.state.pass,
+            passCheck: this.state.passCheck,
             adminId: this.state.adminId
         }
         console.log(user)
 
-        axios.post('http://localhost:9000/Register', user)
+       axios.post('http://localhost:9000/Register', user)
             .then(res => console.log(res.data));
 
         window.location = '/Dashboard';
+        
     }
 
     render() {
@@ -100,13 +101,13 @@ class Register extends Component {
 
                     <Form.Group controlId="formBasicPassword" style={{ margin: "10px" }}>
                         <Form.Label>Enter Password</Form.Label>
-                        <Form.Control value={this.state.password} onChange={this.onPasswordChange} type="password" placeholder="Password" />
+                        <Form.Control value={this.state.pass} onChange={this.onPasswordChange} type="password" placeholder="Password" />
                     </Form.Group>
                     <br />
 
                     <Form.Group controlId="formBasicPassword" style={{ margin: "10px" }}>
                         <Form.Label>Confrim Password</Form.Label>
-                        <Form.Control value={this.state.confirmPass} onChange={this.onConPasswordChange} type="Confirmpassword" placeholder=" Confirm Password" />
+                        <Form.Control value={this.state.passCheck} onChange={this.onConPasswordChange} type="Confirmpassword" placeholder=" Confirm Password" />
                     </Form.Group>
                     <br />
                     

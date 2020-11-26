@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { BrowserRouter as Router, Link, render } from 'react-dom';
 import axios from 'axios'
-    class Login extends Component {
+
+class Login extends Component {
 
     constructor(props) {
         super(props);

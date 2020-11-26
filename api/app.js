@@ -5,8 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 var mongoose = require('mongoose');
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
+
 
 var app = express();
 
@@ -18,25 +18,31 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser()); 
 app.use(express.static(path.join(__dirname, 'public')));
 
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, userCreateIndex: true });
-const connection = mongoose.connection;
+const uri = process.env.MONGODB_ConnectString;
+const PORT = process.env.PORT || 5000;
 
-connection.once('open', () => {
-    console.log("MongoDB connected");
+app.listen(PORT, () => console.log('Server is running on port: ${PORT}'));
+
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
 })
+    .then(() => {
+        console.log('Connected to Mongo!');
+    })
+    .catch((err) => {
+        console.error('Error connecting to Mongo', err);
+    });
 /////
+
 const registerRouter = require('./routes/Register');
 
 app.use('/Register', registerRouter);
 
-
-app.listen(port, () => {
-    console.log('Server is running on port: ${port}');
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
