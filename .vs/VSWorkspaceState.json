@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\api",
+    "\\api\\bin",
+    "\\api\\models",
+    "\\api\\routes",
+    "\\api\\views",
+    "\\webpageproject",
+    "\\webpageproject\\public",
+    "\\webpageproject\\src",
+    "\\webpageproject\\src\\Components"
+  ],
+  "SelectedNode": "\\api",
+  "PreviewInSolutionExplorer": false
+}

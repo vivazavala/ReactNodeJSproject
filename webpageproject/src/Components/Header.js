@@ -10,11 +10,10 @@ function Header() {
         <div className='Header'>
             {/* App Name on far left */}
             <Navbar bg='dark' variant='dark'>
-                <Navbar.Brand>Welcome!</Navbar.Brand>
-
+                <Navbar.Brand>Welcome</Navbar.Brand>  
                 {/* Links to different webpages on far right*/}
                 <Nav className='ml-auto'>
-                    <Nav.Link to='#Login'>Logout</Nav.Link>
+                    <Nav.Link to='/login'>Logout</Nav.Link>
                 </Nav>
             </Navbar>
         </div>
