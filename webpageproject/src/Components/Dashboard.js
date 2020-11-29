@@ -1,15 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect, useContext } from 'react';
+import UserContext from '../context/UserContext';
+import { useHistory } from 'react-router-dom';
 import Header from "./Header"
 import { ListGroup, } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-class Dashboard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            adminId: '' };
-    }
-    render() {
+    function Dashboard() {
+        const { userData } = useContext(UserContext);
+        const history = useHistory();
+
+        useEffect(() => {
+            if (!userData.user)
+                history.push("/");
+            });
+   
         return (
             
             <div className="dashboard">
@@ -28,7 +31,7 @@ class Dashboard extends Component {
                 </div>
 
         );
-    }
+    
 }
 
 export default Dashboard;

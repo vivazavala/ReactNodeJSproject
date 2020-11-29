@@ -36,13 +36,21 @@ router.post("/login", async (req, res) => {
         const user = await User.findOne({ email: email });
         if (!user)
             return res.status(400).json({ msg: "No account with this email." });
-
-        const isMatch = await User.findOne({ pass: pass });    //user.pass ||pass;
+     
+        const isMatch = await User.findOne({ pass: req.body.pass });    //user.pass ||pass; //compar or findOne
         if (!isMatch)
             return res.status(400).json({ msg: "Invalid credentials." });
+        
+            res.json({
+                user: {
+                    email: user.email,
+                    pass: user.pass,
+                    adminId: user.adminId
+                },
+            });
        
     } catch (err) {
-        res.status(500).json({error: error.message}); 
+        res.status(500).json({error: err.message}); 
     }
 });
 

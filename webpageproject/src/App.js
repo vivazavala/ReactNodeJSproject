@@ -15,29 +15,28 @@ function App() {
 
     useEffect(() => {
         const checkLoggedIn = async () => {
-            const email = localStorage.getItem("email");
-            const emailRep = { email };
-       /*     if (email === null) {
+            let email = localStorage.getItem("email");
+            // const emailRep = { email };
+            if (email === null) {
                 localStorage.setItem("email", "");                ///Fixes needed for UserContext
                 email = "";
-                emailRep = { email };
+                // emailRep = { email };
             }
-            */
-            const userRes = await Axios.get('http://localhost:9000/Home/', emailRep);
-        //    console.log(userRes);
-                if (userRes) {
-                    setUserData({
-                        user: userRes.data,  //userRes.data
-                    });
+
+            const userRes = await Axios.get('http://localhost:9000/Home/', { email });
+            //    console.log(userRes);
+            if (userRes.data) {
+                setUserData({
+                    user: userRes.data,  //userRes.data
+                });
             }   ///check if UserData is what was set here?
-        }
+        };
         checkLoggedIn();
        
         
     }, []);
 
-    return (
-        
+    return (  
             <Router>
                 <UserContext.Provider value={{ userData, setUserData }}>
                     <div className="App">
