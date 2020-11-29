@@ -1,10 +1,6 @@
 const router = require('express').Router();
 let User = require('../models/users.model');
-//const { default: Register } = require('../../webpageproject/src/Components/Register');
 
-router.get("/test", (req, res) => {
-    res.send("Hello");
-});
 
 router.post('/Register', async (req, res) => {
     try {
@@ -39,13 +35,21 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ msg: "Not all fields have been entered." });
         const user = await User.findOne({ email: email });
         if (!user)
-            return res.status(400).json({ msg: "Not account with this email." });
-        const isMatch = await User.findOne({ pass: pass });
-        if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
+            return res.status(400).json({ msg: "No account with this email." });
 
+        const isMatch = await User.findOne({ pass: pass });    //user.pass ||pass;
+        if (!isMatch)
+            return res.status(400).json({ msg: "Invalid credentials." });
+       
     } catch (err) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({error: error.message}); 
     }
+});
+
+router.get("/", async (req, res) => {
+    const {email}=req.body
+    const user = await User.findOne({email: email});
+    res.json(user);
 });
 
 module.exports = router;

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import Header from "./Header"
 import { ListGroup, } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 class Dashboard extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            email: '',
+            adminId: '' };
     }
     render() {
         return (

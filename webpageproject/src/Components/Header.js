@@ -3,7 +3,8 @@ import {
     Navbar,
     Nav,
 } from 'react-bootstrap';
-//import { Link } from 'react-router-dom';
+//import {Link} from 'react-dom'
+import { Link } from 'react-router-dom';
 
 function Header() {
     return (
@@ -13,7 +14,7 @@ function Header() {
                 <Navbar.Brand>Welcome</Navbar.Brand>  
                 {/* Links to different webpages on far right*/}
                 <Nav className='ml-auto'>
-                    <Nav.Link to='/login'>Logout</Nav.Link>
+                    <Link to='/' style={{ color: 'white' }}>Logout</Link>
                 </Nav>
             </Navbar>
         </div>
