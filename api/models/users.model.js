@@ -12,7 +12,7 @@ const userSchema = new Schema({
     pass: {
         type: String,
         required: true,
-        minlength : 5
+        minlength: 5
     },
     adminId: {
         type: Number,

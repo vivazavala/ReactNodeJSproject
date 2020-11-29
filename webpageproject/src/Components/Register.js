@@ -1,70 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from "react-router-dom";
 import { Form, Button, MenuItem, Dropdown, FormControl, DropdownButton } from 'react-bootstrap';
-import axios from 'axios'
+import axios from 'axios';
+import UserContext from "../context/userContext";
+import ErrorNotice from "../misc/ErrorNotice";
 
-class Register extends Component {
-    constructor(props) {
-        super(props);
+function Register() {
 
-        this.onAdminChange = this.onAdminChange.bind(this);
-        this.onConPasswordChange = this.onConPasswordChange.bind(this);
-        this.onPasswordChange = this.onPasswordChange.bind(this);
-        this.onEmailChange = this.onEmailChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [passwordCheck, setPasswordCheck] = useState();
+    const [error, setError] = useState();
+    const [ adminID, setAdminChange ] = useState(); 
 
-        this.state = {
-            email: '',
-            pass: '',
-            passCheck: '',
-            adminId: ''
-        }
-    }
-    componentDidMount() {
-        this.setState({
-        email: 'testEmail'
-        })
-    }
+    const { setUserData } = useContext(UserContext);
+    const history = useHistory();
 
-    onConPasswordChange(e) {
-        this.setState({
-            passCheck: e.target.value
-        });
-
-    }
-    onPasswordChange(e) {
-        this.setState({
-            pass: e.target.value
-        });
-    }
-    onEmailChange(e) {
-        this.setState({
-            email: e.target.value
-        });
-    }
-    onAdminChange(e) {
-        this.setState({
-        adminId:e.target.value
-        });
-    }
-
-    onSubmit(e) {
+    const submit = async (e) => {
         e.preventDefault();
-        const user = {
-            email: this.state.email,
-            pass: this.state.pass,
-            passCheck: this.state.passCheck,
-            adminId: this.state.adminId
+
+        try {
+            const newUser = { email, password, passwordCheck, adminID };
+            await axios.post("http://localhost:3001/users/Register", newUser);
+            const loginResponse = await axios.post("http://localhost:3001/users/login", {
+                email, password
+            });
+            setUserData({
+                token: loginResponse.data.token,
+                user: loginResponse.data.user
+            });
+            localStorage.setItem("auth-token", loginResponse.data.token);
+            history.push("/");
+        } catch (err) {
+            err.response.data.msg && setError(err.response.data.msg)
         }
-        console.log(user)
 
-       axios.post('http://localhost:9000/Register', user)
-            .then(res => console.log(res.data));
+    };
 
-        window.location = '/Dashboard';
-        
-    }
-
-    render() {
         return (
 
             <div style={{
@@ -79,41 +51,43 @@ class Register extends Component {
 
             }}>
 
+                {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
 
-                <Form onSubmit={this.onSubmit} style={{ 
+
+                <Form onSubmit={submit} style={{
                     position: 'absolute', left: '50%', top: '50%',
                     transform: 'translate(-50%, -50%)',
                     height: '63',
                     width: '40%',
                     borderRadius: '15px',
                     backgroundColor: '#ffffff'
-                    }}>
-                    <br/>
-                    <h1 align="middle" style={{color: 'grey' }}>Register</h1>
+                }}>
+                    <br />
+                    <h1 align="middle" style={{ color: 'grey' }}>Register</h1>
                     <br />
                     <br />
 
                     <Form.Group controlId="formBasicEmail" style={{ margin: "10px" }} >
                         <Form.Label> Enter email address</Form.Label>
-                        <Form.Control value={this.state.email} onChange={this.onEmailChange} type="email" placeholder="Enter email" />
+                        <Form.Control onChange={e => setEmail(e.target.value)} type="email" placeholder="Enter email" />
                     </Form.Group>
                     <br />
 
                     <Form.Group controlId="formBasicPassword" style={{ margin: "10px" }}>
                         <Form.Label>Enter Password</Form.Label>
-                        <Form.Control value={this.state.pass} onChange={this.onPasswordChange} type="password" placeholder="Password" />
+                        <Form.Control onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" />
                     </Form.Group>
                     <br />
 
                     <Form.Group controlId="formBasicPassword" style={{ margin: "10px" }}>
                         <Form.Label>Confrim Password</Form.Label>
-                        <Form.Control value={this.state.passCheck} onChange={this.onConPasswordChange} type="Confirmpassword" placeholder=" Confirm Password" />
+                        <Form.Control onChange={e => setPasswordCheck(e.target.value)} type="Confirmpassword" placeholder=" Confirm Password" />
                     </Form.Group>
                     <br />
-                    
+
                     <Form.Group controlId="Role" style={{ margin: "10px" }}>
                         <Form.Label>Select Admin Type</Form.Label>
-                        <Form.Control value={this.state.adminId} onChange={this.onAdminChange} as="select" custom>
+                        <Form.Control onChange={e => setAdminChange(e.target.value)} as="select" custom>
                             <option value="1">Admin</option>
                             <option value="2">Finance</option>
                             <option value="3">Sales</option>
@@ -121,20 +95,21 @@ class Register extends Component {
                             <option value="5">Technology</option>
                         </Form.Control>
                     </Form.Group>
-                    <br /> 
-                    <Form.Group controlId="Register" style={{ margin: "10px", backgroundColor: 'grey', borderRadius: '15px', }}>   
-                    <Button align="middle" variant="secondary" type="submit" block >
+
+                    <br />
+                    <Form.Group controlId="Register" style={{ margin: "10px", backgroundColor: 'grey', borderRadius: '15px', }}>
+                        <Button align="middle" variant="secondary" type="submit" block >
                             Register
                         </Button>
-                    </Form.Group > 
+                    </Form.Group >
 
-                    <br/>
+                    <br />
 
                 </Form>
             </div>
 
         );
-    }
+    
 }
 
 export default Register;

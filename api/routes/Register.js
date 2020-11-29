@@ -1,7 +1,9 @@
-const router = require('express').Router();
-let User = require('../models/users.model');
-//const { default: Register } = require('../../webpageproject/src/Components/Register');
+//const router = require('express').Router();
+//let User = require('../models/users.model');
 
+
+//const { default: Register } = require('../../webpageproject/src/Components/Register');
+/*
 router.get("/test", (req, res) => {
     res.send("Hello");
 });
@@ -25,27 +27,38 @@ router.post('/Register', async (req, res) => {
         const savedUser = await newUser.save();
         res.json(savedUser);
 
+
     } catch (err) {
        res.status(500).json({error: err.message});
 
     }
-});
-
+}); */
+/*
 router.post("/login", async (req, res) => {
     try {
+        
         const { email, pass } = req.body;
 
         if (!email || !pass)
-            return res.status(400).json({ msg: "Not all fields have been entered." });
-        const user = await User.findOne({ email: email });
+            return res.status(401).json({ msg: "Not all fields have been entered." });
+        const user = await users.findOne({ email: email });
         if (!user)
-            return res.status(400).json({ msg: "Not account with this email." });
-        const isMatch = await User.findOne({ pass: pass });
-        if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
+            return res.status(401).json({ msg: "Not account with this email." });
+        const isMatch = await users.findOne({ pass: pass });
+        if (!isMatch) return res.status(401).json({ msg: "Invalid credentials." });
 
     } catch (err) {
         res.status(500).json({ error: error.message });
     }
 });
 
-module.exports = router;
+router.post('/Dashboard', async (req, res) => {
+    const db = client.db(test)
+    const collection = db.collection(sub_db)
+    const items = await collection.find(query).toArray();
+    client.close()
+    return items;
+}); 
+*/
+
+//module.exports = router;
