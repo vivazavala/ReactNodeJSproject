@@ -36,8 +36,8 @@ function Dashboard() {
     return (
         <div>
             <Header />
-            <h1> Admin Links: </h1> 
-            < LinkTime  mylinks={mylinks} /> 
+            <h1> User Links: </h1> 
+            < LinkTime mylinks={mylinks} /> 
             
         </div>
     );
