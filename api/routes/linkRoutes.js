@@ -21,8 +21,8 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/all", async (req, res) => {
-    const { adminId } = req.body;
-    const allLinks = await Links.find({ adminId: adminId });
+    const {  currAdmin } = req.body;
+    const allLinks = await Links.find({adminId: req.query.currAdmin });
     
     res.json(allLinks);
 });
