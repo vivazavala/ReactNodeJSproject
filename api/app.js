@@ -42,7 +42,7 @@ mongoose.connect(uri, {
 const registerRouter = require('./routes/Register');
 
 app.use('/Register', registerRouter);
-
+app.use('/login', registerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
