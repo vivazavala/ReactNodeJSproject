@@ -36,7 +36,7 @@ class Login extends Component {
             axios.post('http://localhost:9000/Register', user)
                 .then(res => console.log(res.data));
 
-            window.location('/Dashboard');
+            window.location='/Dashboard';
 
             this.setState({
                 email: '',
