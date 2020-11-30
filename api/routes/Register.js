@@ -3,7 +3,7 @@ let User = require('../models/users.model');
 //const { default: Register } = require('../../webpageproject/src/Components/Register');
 
 router.get("/test", (req, res) => {
-    res.send("Hello");
+    res.send("Hello!");
 });
 
 router.post('/Register', async (req, res) => {
