@@ -10,7 +10,7 @@ class App extends React.Component {
         super(props);
         this.state = {};
     }
-
+    
     render() {
         return (
          <Router>
@@ -18,7 +18,7 @@ class App extends React.Component {
                     <Route path="/" exact component={Login} />
                     <Route path="/Register" component={Register} />
                     <Route path="/Dashboard" component={Dashboard}/>      
-                          
+    
                 </div>
 
                 </Router>
