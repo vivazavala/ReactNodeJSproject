@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let User = require('../models/users.model');
+let Links = require('../models/links.model');
 
 
 router.post('/Register', async (req, res) => {
@@ -54,9 +55,16 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/links", async (req, res) => {
+    const linked = await Links.findOne({ adminId: 2 })
+    return res.json(linked); 
+}); 
+
+
 router.get("/", async (req, res) => {
-    const {email}=req.body
-    const user = await User.findOne({email: email});
+    const {email, adminId}=req.body
+    const user = await User.findOne({ email: email });
+    await User.findOne({ adminId: adminId});
     res.json(user);
 });
 
