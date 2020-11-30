@@ -24,12 +24,13 @@ function App() {
             }
 
             const userRes = await Axios.get('http://localhost:9000/Home/', { email });
-   
+    
             if (userRes.data) {
                 setUserData({
-                    user: userRes.data,  //userRes.data
+                    user: userRes.data.user,  //userRes.data
                 });
             }   ///check if UserData is what was set here?
+            
         };
         checkLoggedIn();
        

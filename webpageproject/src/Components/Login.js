@@ -25,9 +25,8 @@ import ErrorNotice from './ErrorNotice';
                     user: loginRes.data.user,  //loginRes.data,      
                 });    
                 //  console.log(loginRes.data.user);
-                localStorage.setItem('user', loginRes.data.user);
-                history.push("/Dashboard");
-                
+                localStorage.setItem('adminId', loginRes.data.user.adminId);  //.user   .data.user
+                history.push("/Dashboard");        
            } catch (err) {
                 err.response.data.msg && setError(err.response.data.msg);
             }

@@ -8,33 +8,39 @@ import Axios from 'axios';
 function Dashboard() {
     const { userData } = useContext(UserContext);
     const history = useHistory();
-    const [links, setLinks] = useState();
-
-    useEffect(() => {
-        if (!userData.user)
+    const [links, setLinks] = useState([]);
+  
+    useEffect( () => {
+       if (!userData.user)
             history.push("/");
-        let currAdmin = userData.user.adminId;   //problem here fix here
-        const checkAdmin = async () => {
-            const adminRes = await Axios.get('http://localhost:9000/Links/all', { currAdmin });
-            setLinks(adminRes.data);
+
+      
+        
+        const checkAdmin = async () => {    //let ||const currAdmin
+              let currAdmin = userData.user.adminId; //problem here// curr Id is here but need to pass userData.user.adminId
+           
+            const adminRes = await Axios.get('http://localhost:9000/Links/all?currAdmin='+currAdmin);   //{currentAdmin}
+            console.log(adminRes.data);   //.data
+          //  setLinks(adminRes.data);   /////this is what needs to be fixed///////
+          
         };
         checkAdmin();
-    });
-            
+    }, []);
+    
+    
    
-        return (
-            
+        return (   
             <div className="dashboard">
                 <Header />
                 <br /><br />
 
                 <h3>Admin Type:</h3>
-                <ListGroup className="linkList" value>
-                    <ListGroup.Item>{links}</ListGroup.Item>  
-                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                    <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                    <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                <ListGroup className="linkList">
+                    {links.map(e => (    //(e)  ////may need fixing !! array of objects
+                        <ListGroup.item key={e.adminId}>                          
+                            {e.links} 
+                        </ListGroup.item>
+                    ))}
                 </ListGroup>
                 
                 </div>
