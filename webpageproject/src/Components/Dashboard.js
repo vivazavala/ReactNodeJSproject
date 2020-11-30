@@ -4,43 +4,40 @@ import { useHistory, Link } from 'react-router-dom';
 import Header from "./Header"
 import { ListGroup, } from 'react-bootstrap';
 import axios from 'axios';
+import LinkTime from './LinkTime';
 
 function Dashboard() {
     const { userData } = useContext(UserContext);
     const history = useHistory();
-    const [links, setLinks] = useState([]);
-
-
 
     useEffect(() => {
         if (!userData.user)
             history.push("/");
-        const checkAdmin = async () => {
-            let currAdmin = userData.user.adminId;   
-
-            const adminRes = await axios.get('http://localhost:9000/Links/all?currAdmin=' +currAdmin );
-            setLinks(adminRes.linked);
-        };
     }, []);
+
+    useEffect(() => {
+        getAllLinks();
+    }, []);
+
+    const [mylinks, getLinks] = useState('');
+
+    const getAllLinks = () => {
+        let currAdmin = userData.user.adminId;
+           return axios.get('http://localhost:9000/Links/all?currAdmin=' + currAdmin)
+            .then((response) => {
+                const allLinks = response.data;
+                getLinks(allLinks);
+            })
+            .catch(error => console.error('Error'));
+    }
+
 
     return (
 
-        <div className="dashboard">
-            <Header />
-            <br />
-            <br />
-            <h3> Admin Type: </h3>
-            <ListGroup className="linklist" >
-                {links && links.map(e => (
-                    <ListGroup.item key={e.adminId}>
-                        {e.links}
-                    </ListGroup.item>
-                ))}
-            </ListGroup>
-
-        </div>
-
+        < LinkTime mylinks={mylinks} />
     );
+
+
 
 
 }
