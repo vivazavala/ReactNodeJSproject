@@ -11,9 +11,11 @@ export default function LinkTime(props) {
                     console.log(mylink);
                     return (
                         <a href="links" >
-                            <div class='mylink' key={mylink._id}>
+                            <div class='mylink' key={mylink._id} >
+                                <br /> 
+                                <br /> 
                                 <p class="links"> {mylink.links} </p>
-                            </div >
+                             </div>
                             </a>
                     )
                 })
