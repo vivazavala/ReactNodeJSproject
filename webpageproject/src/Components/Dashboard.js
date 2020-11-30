@@ -1,66 +1,42 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useState ,useEffect, useContext } from 'react';
 import UserContext from '../context/UserContext';
 import { useHistory } from 'react-router-dom';
 import Header from "./Header"
 import { ListGroup, } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import axios from 'axios'; 
+import Axios from 'axios';
 
-    function Dashboard() {
-        const { userData } = useContext(UserContext);
-        const history = useHistory();
+function Dashboard() {
+    const { userData } = useContext(UserContext);
+    const history = useHistory();
+    const [links, setLinks] = useState();
 
-        useEffect(() => {
-            if (!userData.user)
-                history.push("/");
-        });
-
-        useEffect(() => {
-            getAllLinks();
-        }, []);
-
-            const [links, getLinks] = useState(''); 
-
-
-            const getAllLinks = () => {
-                axios.get('http://localhost:9000/Home/links')
-                    .then((response) => {
-                        const allLinks = response.data.links.allLinks;
-                        getLinks(allLinks);
-                    })
-                    .catch(error => console.error('Error' ));
-            }
-        
-        const displaylinks = () => {
-            if (links.length > 0) {
-                return (
-                    links.map((link, index) => {
-                        console.log(link);
-                        return (
-                            <p className="Links"> {link.adminId}</p>
-                        )
-                    })
-                )
-            } else {
-                return(<h3> No </h3>)
-            }
-        }
-
-        return (<> {displaylinks()} </>)
-
+    useEffect(() => {
+        if (!userData.user)
+            history.push("/");
+        let currAdmin = userData.user.adminId;   //problem here fix here
+        const checkAdmin = async () => {
+            const adminRes = await Axios.get('http://localhost:9000/Links/all', { currAdmin });
+            setLinks(adminRes.data);
+        };
+        checkAdmin();
+    });
+            
+   
         return (
             
             <div className="dashboard">
                 <Header />
                 <br /><br />
-                    {userData.user ? (
-                        <h1>Welcome {userData.user.email}</h1>
-                    ) : (
-                            <>
-                                <h2>You are not logged in</h2>
-                                <Link to="/login">Login</Link>
-                            </>
-                        )}
+
+                <h3>Admin Type:</h3>
+                <ListGroup className="linkList" value>
+                    <ListGroup.Item>{links}</ListGroup.Item>  
+                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                    <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+                    <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                </ListGroup>
+                
                 </div>
 
         );

@@ -24,7 +24,7 @@ function App() {
             }
 
             const userRes = await Axios.get('http://localhost:9000/Home/', { email });
-            //    console.log(userRes);
+   
             if (userRes.data) {
                 setUserData({
                     user: userRes.data,  //userRes.data

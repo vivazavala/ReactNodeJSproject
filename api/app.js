@@ -40,8 +40,10 @@ mongoose.connect(uri, {
 /////
 
 const userRouter = require('./routes/userRoutes');
+const linkRouter = require('./routes/linkRoutes');
 
 app.use('/Home', userRouter);
+app.use('/Links', linkRouter);
 
 
 // catch 404 and forward to error handler
