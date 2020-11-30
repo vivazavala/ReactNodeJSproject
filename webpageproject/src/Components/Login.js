@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import UserContext from '../context/UserContext';
 import { Form, Button } from 'react-bootstrap';
-import axios from "axios";
-import UserContext from "../context/userContext";
-import ErrorNotice from "../misc/ErrorNotice";
+import { BrowserRouter as Router, Link, render } from 'react-dom';
+import axios from 'axios'
+import ErrorNotice from './ErrorNotice';
 
 function Login() {
     const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [pass, setPass] = useState();
     const [error, setError] = useState();
 
     const { setUserData } = useContext(UserContext);
@@ -16,21 +17,21 @@ function Login() {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            const loginUser = { email, password };
-            const loginResponse = await axios.post("http://localhost:3001/users/login", loginUser);
+            const loginUser = { email, pass };
+            //    localStorage.setItem('email', email);
+            const loginRes = await axios.post('http://localhost:9000/Home/login', loginUser);
+
             setUserData({
-                token: loginResponse.data.token,
-                user: loginResponse.data.user
+                user: loginRes.data.user,  //loginRes.data,      
             });
-            localStorage.setItem("auth-token", loginResponse.data.token);
-            history.push("/");
+            //  console.log(loginRes.data.user);
+            localStorage.setItem('user', loginRes.data.user);
+            history.push("/Dashboard");
+
         } catch (err) {
-            err.response.data.msg && setError(err.response.data.msg)
+            err.response.data.msg && setError(err.response.data.msg);
         }
-
     };
-
-
 
     return (
 
@@ -44,7 +45,6 @@ function Login() {
             height: '100%',
             width: '100%'
         }}>
-            {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
 
             <Form onSubmit={submit} style={{
                 position: 'absolute', left: '50%', top: '50%',
@@ -59,17 +59,22 @@ function Login() {
                 <h1 align="middle" style={{
                     color: 'grey',
                 }}>Sign In</h1>
+
+                {error && (
+                    <ErrorNotice message={error} clearError={() => setError(undefined)} />
+                )}
+
                 <br />
 
                 <Form.Group controlId="formBasicEmail" style={{ margin: "10px" }}>
                     <Form.Label style={{ color: 'black' }}>Email address</Form.Label>
-                    <Form.Control onChange={e => setEmail(e.target.value)} type="email" placeholder="Enter email" />
+                    <Form.Control onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter email" />
                     <br /><br />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword" style={{ margin: "10px" }}>
                     <Form.Label style={{ color: 'black' }}>Password</Form.Label>
-                    <Form.Control onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" />
+                    <Form.Control onChange={(e) => setPass(e.target.value)} type="pass" placeholder="Password" />
                 </Form.Group>
                 <br />
                 <Form.Group controlId="RegisterForgot" style={{ margin: "10px" }}>
@@ -82,7 +87,6 @@ function Login() {
         </div>
 
     );
-
 }
 
 export default Login;
