@@ -1,10 +1,7 @@
 const router = require('express').Router();
 let User = require('../models/users.model');
-//const { default: Register } = require('../../webpageproject/src/Components/Register');
+let Links = require('../models/links.model');
 
-router.get("/test", (req, res) => {
-    res.send("Hello!");
-});
 
 router.post('/Register', async (req, res) => {
     try {
@@ -39,13 +36,36 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ msg: "Not all fields have been entered." });
         const user = await User.findOne({ email: email });
         if (!user)
-            return res.status(400).json({ msg: "Not account with this email." });
-        const isMatch = await User.findOne({ pass: pass });
-        if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
-
+            return res.status(400).json({ msg: "No account with this email." });
+     
+        const isMatch = await User.findOne({ pass: req.body.pass });    //user.pass ||pass; //compar or findOne
+        if (!isMatch)
+            return res.status(400).json({ msg: "Invalid credentials." });
+        
+            res.json({
+                user: {
+                    email: user.email,
+                    pass: user.pass,
+                    adminId: user.adminId
+                },
+            });
+       
     } catch (err) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({error: err.message}); 
     }
+});
+
+router.get("/links", async (req, res) => {
+    const linked = await Links.findOne({ adminId: 2 })
+    return res.json(linked); 
+}); 
+
+
+router.get("/", async (req, res) => {
+    const {email, adminId}=req.body
+    const user = await User.findOne({ email: email });
+    await User.findOne({ adminId: adminId});
+    res.json(user);
 });
 
 module.exports = router;
