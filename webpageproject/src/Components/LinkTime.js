@@ -1,5 +1,4 @@
 import React from 'react'; 
-import Header from "./Header"
 
 export default function LinkTime(props) {
 
@@ -8,7 +7,7 @@ export default function LinkTime(props) {
 
         if (mylinks.length > 0) {
             return (
-                mylinks.map((mylink, index) => {
+                mylinks.map((mylink) => {
                     console.log(mylink);
                     return (
                         <a href="links" >
