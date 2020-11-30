@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Header from "./Header"
 import { ListGroup, } from 'react-bootstrap';
+
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
+    
     render() {
         return (
             
@@ -21,8 +24,8 @@ class Dashboard extends Component {
                     <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
                     <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
                 </ListGroup>
-                
-                </div>
+
+            </div>
 
         );
     }
