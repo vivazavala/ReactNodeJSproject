@@ -10,19 +10,23 @@ function Dashboard() {
     const history = useHistory();
     const [links, setLinks] = useState([]);
   
-    useEffect( () => {
-       if (!userData.user)
+    useEffect(() => {
+        if (!userData.user)
             history.push("/");
 
-      
-        
         const checkAdmin = async () => {    //let ||const currAdmin
-              let currAdmin = userData.user.adminId; //problem here// curr Id is here but need to pass userData.user.adminId
-           
-            const adminRes = await Axios.get('http://localhost:9000/Links/all?currAdmin='+currAdmin);   //{currentAdmin}
-            console.log(adminRes.data);   //.data
-          //  setLinks(adminRes.data);   /////this is what needs to be fixed///////
-          
+            let currAdmin = userData.user.adminId; //problem here// curr Id is here but need to pass userData.user.adminId
+
+            const adminRes = await Axios.get('http://localhost:9000/Links/all?currAdmin=' + currAdmin);   //{currentAdmin}
+
+            //  console.log(adminRes);   //.data
+            //   const arr = adminRes.data;
+            setLinks(adminRes.data.map(item => {
+                console.log(item.links);
+                return item.links;
+            }));   /////this is what needs to be fixed///////
+        
+            
         };
         checkAdmin();
     }, []);
@@ -36,11 +40,11 @@ function Dashboard() {
 
                 <h3>Admin Type:</h3>
                 <ListGroup className="linkList">
-                    {links.map(e => (    //(e)  ////may need fixing !! array of objects
-                        <ListGroup.item key={e.adminId}>                          
-                            {e.links} 
+                   {links.map(e => (    //(e)  ////may need fixing !! array of objects
+                        <ListGroup.item key={e}>                          
+                            {e} 
                         </ListGroup.item>
-                    ))}
+                    ))} 
                 </ListGroup>
                 
                 </div>
