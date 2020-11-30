@@ -1,4 +1,5 @@
 import React from 'react'; 
+import Header from "./Header"
 
 export default function LinkTime(props) {
 
@@ -10,16 +11,17 @@ export default function LinkTime(props) {
                 mylinks.map((mylink, index) => {
                     console.log(mylink);
                     return (
-                        <div class='mylink' key={mylink._id}>
-                            <p class="links"> {mylink.links} </p>
-                            <div class="ID"> {mylink.adminId} </div>
+                        <a href="links" >
+                            <div class='mylink' key={mylink._id}>
+                                <p class="links"> {mylink.links} </p>
                             </div >
+                            </a>
                     )
                 })
             )
 
         } else {
-           return <div> no </div>
+           return <div> Waiting for links...</div>
         }
     }
 

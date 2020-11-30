@@ -2,6 +2,7 @@ import React, { useContext}from 'react';
 import {
     Navbar,
     Nav,
+    NavbarBrand,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -20,7 +21,13 @@ function Header() {
         <div className='Header'>
             {/* App Name on far left */}
             <Navbar bg='dark' variant='dark'>
-                <Navbar.Brand>Welcome</Navbar.Brand>  
+                {userData.user ? (
+                    <NavbarBrand> Welcome {userData.user.email}  </NavbarBrand>
+   
+                ) : (
+                        <>
+                        </>
+                    )} 
                 {/* Links to different webpages on far right*/}
                 <Nav className='ml-auto'>
                     <Link to='/' onClick={logout} style={{ color: 'white' }}>Logout</Link>

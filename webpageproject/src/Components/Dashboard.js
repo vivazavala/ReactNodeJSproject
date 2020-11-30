@@ -32,13 +32,14 @@ function Dashboard() {
     }
 
 
+
     return (
-
-        < LinkTime mylinks={mylinks} />
+        <div>
+                <Header />
+                < LinkTime mylinks={mylinks} /> 
+            
+        </div>
     );
-
-
-
 
 }
 
